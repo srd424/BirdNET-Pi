@@ -8,8 +8,8 @@ echo "Beginning $0"
 birdnet_conf=$my_dir/birdnet.conf
 
 # Retrieve latitude and longitude from web
-LATITUDE=0
-LONGITUDE=0
+LATITUDE=0.0000
+LONGITUDE=0.0000
 
 # Define regular expression pattern
 pattern='^[+-]?[0-9]{2}\.[0-9]{4}$'

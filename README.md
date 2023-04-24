@@ -40,7 +40,7 @@ Currently listening in these countries . . . that I know of . . .
 - France
 - Austria
 - Sweden
-- Scotland
+- Scotlan
 - Norway
 - England
 - Italy
