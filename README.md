@@ -2,6 +2,9 @@
 
 <h1 align="center">To install </h1>
 
+<p>
+In a Debian 11 VM with default user "pi":
+</p>
 
 ```
 curl -s https://raw.githubusercontent.com/MatthewBCooke/BirdNET-Pi/debian/newinstaller.sh | bash

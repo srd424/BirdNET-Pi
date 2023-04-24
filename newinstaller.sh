@@ -32,6 +32,7 @@ if [[ ! -z $PACKAGES_MISSING ]] ; then
   sudo apt -y install $PACKAGES_MISSING
 fi
 
+
 branch=debian
 git clone -b $branch --depth=1 https://github.com/MatthewBCooke/BirdNET-Pi.git ${HOME}/BirdNET-Pi &&
 
