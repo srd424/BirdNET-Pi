@@ -1,5 +1,7 @@
 ## A fork of mcguirepr89's BirdNET-Pi with changes inspired by Japi42 to port to a Debian VM.
 
+<h1 align="center">To install `curl -s https://raw.githubusercontent.com/MatthewBCooke/BirdNET-Pi/debian/newinstaller.sh | bash`</h1>
+
 
 <h1 align="center"><a href="https://github.com/mcguirepr89/BirdNET-Pi/blob/main/LICENSE">Review the license!!</a></h1>
 <h1 align="center">You may not use BirdNET-Pi to develop a commercial product!!!!</h1>
