@@ -44,4 +44,6 @@ cd $my_dir/scripts || exit 1
 
 ./install_language_label.sh -l $DATABASE_LANG || exit 1
 
+
+
 exit 0
