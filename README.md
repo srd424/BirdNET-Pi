@@ -3,7 +3,7 @@
 <h1 align="center">To install </h1>
 
 <p>
-In a Debian 11 VM with default user "pi":
+In a Debian 11 VM with default user "pi" run:
 </p>
 
 ```
