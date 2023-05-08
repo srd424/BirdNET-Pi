@@ -23,7 +23,7 @@ unzip -o $HOME/BirdNET-Pi/model/labels_nm.zip $label_file_name \
   && mv -f $HOME/BirdNET-Pi/model/$label_file_name $HOME/BirdNET-Pi/model/labels.txt \
   && logger "[$0] Changed language label file to '$label_file_name'";
 
-label_file_name_flickr="labels_${lang}.txt"
+label_file_name_flickr="labels_en.txt"
 
 unzip -o $HOME/BirdNET-Pi/model/labels_nm.zip $label_file_name_flickr \
   -d $HOME/BirdNET-Pi/model \
