@@ -1,5 +1,3 @@
-## A fork of mcguirepr89's BirdNET-Pi with changes inspired by Japi42 to port to a Debian VM.
-
 <h1 align="center">To install </h1>
 
 <p>
@@ -10,7 +8,7 @@ In a Debian 11 VM with default user "pi" run:
 curl -s https://raw.githubusercontent.com/MatthewBCooke/BirdNET-Pi/debian/newinstaller.sh | bash
 ```
 
-<h1 align="center"><a href="https://github.com/mcguirepr89/BirdNET-Pi/blob/main/LICENSE">Review the license!!</a></h1>
+<h1 align="center"><a href="https://github.com/MatthewBCooke/BirdNET-Pi/blob/main/LICENSE">Review the license!!</a></h1>
 <h1 align="center">You may not use BirdNET-Pi to develop a commercial product!!!!</h1>
 <h1 align="center">
   BirdNET-Pi
@@ -26,7 +24,7 @@ Icon made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from 
 </p>
 
 ## Introduction
-BirdNET-Pi is built on the [BirdNET framework](https://github.com/kahst/BirdNET-Analyzer) by [**@kahst**](https://github.com/kahst) <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg"></a> using [pre-built TFLite binaries](https://github.com/PINTO0309/TensorflowLite-bin) by [**@PINTO0309**](https://github.com/PINTO0309) . It is able to recognize bird sounds from a USB microphone or sound card in realtime and share its data with the rest of the world.
+BirdNET-Pi is built on the [BirdNET framework](https://github.com/kahst/BirdNET-Analyzer) by [**@kahst**](https://github.com/kahst) <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg"></a> using [pre-built TFLite binaries](https://github.com/PINTO0309/TensorflowLite-bin) by [**@PINTO0309**](https://github.com/PINTO0309) . It is able to recognize bird sounds from a USB microphone or sound card in realtime and share its data with the rest of the world. This fork of mcguirepr89's [BirdNET-Pi](https://github.com/mcguirepr89/BirdNET-Pi/) with changes required to allow it to run in a Debian environment.
 
 Check out birds from around the world
 - [BirdWeather](https://app.birdweather.com)<br>
@@ -117,7 +115,7 @@ Please take a look at the [wiki](https://github.com/mcguirepr89/BirdNET-Pi/wiki)
 - [building your own microphone](https://github.com/DD4WH/SASS/wiki/Stereo--(Mono)-recording-low-noise-low-cost-system)
 - [privacy concerns and options](https://github.com/mcguirepr89/BirdNET-Pi/discussions/166)
 - [beta testing](https://github.com/mcguirepr89/BirdNET-Pi/discussions/11)
-- [and more!](https://github.com/mcguirepr89/BirdNET-Pi/discussions)
+- [and more!](https://github.com/MatthewBCooke/BirdNET-Pi/discussions)
 
 
 ## Updating 
