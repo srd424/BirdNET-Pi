@@ -104,7 +104,7 @@ Please note that installing BirdNET-Pi on top of other servers is not supported.
 
 The system can be installed with:
 ```
-curl -s https://raw.githubusercontent.com/mcguirepr89/BirdNET-Pi/main/newinstaller.sh | bash
+curl -s https://raw.githubusercontent.com/MatthewBCooke/BirdNET-Pi/debian/newinstaller.sh | bash
 ```
 The installer takes care of any and all necessary updates, so you can run that as the very first command upon the first boot, if you'd like.
 
@@ -115,7 +115,7 @@ The BirdNET-Pi can be accessed from any web browser on the same network:
 - Default Basic Authentication Username: birdnet
 - Password is empty by default. Set this in "Tools" > "Settings" > "Advanced Settings"
 
-Please take a look at the [wiki](https://github.com/mcguirepr89/BirdNET-Pi/wiki) and [discussions](https://github.com/mcguirepr89/BirdNET-Pi/discussions) for information on
+Please take a look at the [wiki](https://github.com/mcguirepr89/BirdNET-Pi/wiki) and [discussions](https://github.com/MatthewBCooke/BirdNET-Pi/discussions) for information on
 - [BirdNET-Pi's Deep Convolutional Neural Network(s)](https://github.com/mcguirepr89/BirdNET-Pi/wiki/BirdNET-Pi:-some-theory-on-classification-&-some-practical-hints)
 - [making your installation public](https://github.com/mcguirepr89/BirdNET-Pi/wiki/Sharing-Your-BirdNET-Pi)
 - [backing up and restoring your database](https://github.com/mcguirepr89/BirdNET-Pi/wiki/Backup-and-Restore-the-Database)
