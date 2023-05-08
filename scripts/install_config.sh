@@ -11,16 +11,6 @@ birdnet_conf=$my_dir/birdnet.conf
 LATITUDE=0.0000
 LONGITUDE=0.0000
 
-# Define regular expression pattern
-pattern='^[+-]?[0-9]{2}\.[0-9]{4}$'
-
-# Check if latitude and longitude match the pattern
-if ! [[ $LATITUDE =~ $pattern ]] || ! [[ $LONGITUDE =~ $pattern ]]; then
-  echo -e "\033[33mCouldn't set latitude and longitude automatically, you will need to do this manually from the web interface by navigating to Tools -> Settings -> Location.\033[0m"
-  LATITUDE=0.0000
-  LONGITUDE=0.0000
-fi
-
 install_config() {
   cat << EOF > $birdnet_conf
 ################################################################################
