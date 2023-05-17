@@ -64,6 +64,7 @@ Currently listening in these countries . . . that I know of . . .
 - Estonia
 - Tasmania
 - Luxembourgh
+- Crete
 
 ## Features
 * **24/7 recording and automatic identification** of bird songs, chirps, and peeps using BirdNET machine learning
@@ -96,7 +97,7 @@ The installer takes care of any and all necessary updates, so you can run that a
 The installation creates a log in `$HOME/installation-$(date "+%F").txt`.
 ## Access
 The BirdNET-Pi can be accessed from any web browser on the same network:
-- http://birdnetpi.local
+- http://birdnetpi.local OR your Pi's IP address
 - Default Basic Authentication Username: birdnet
 - Password is empty by default. Set this in "Tools" > "Settings" > "Advanced Settings"
 
