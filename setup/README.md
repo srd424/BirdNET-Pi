@@ -3,17 +3,17 @@
 ## CT is short for container
 
 1. [Setup your proxmox server](https://www.proxmox.com/en/proxmox-ve/get-started)
-2. Click on your "local (pve)" disk >> Click "CT Templates" >> Click the "Templates" button >> download the Debian 11 template. ![](Pictures/Proxmox1.png)
-3. Add "Hostname" >> Give a Password and confirm password. ![](Pictures/Proxmox2.png)
-4. Select the Debian 11 template. ![](Pictures/Proxmox3.png)
-5. Add your disk size. ![](Pictures/Proxmox4.png)
-6. Add how many CPU cores you want to use. ![](Pictures/Proxmox5.png)
-7. Add how much Memory you want to use. ![](/Pictures/Proxmox6.png)
-8. Give you CT a IP or choose DHCP to let your router choose. ![](Pictures/Proxmox7.png)
-9. Click Next and Confirm/Finish
-10. Click on the "BirdNETPi" CT you created and under "Options" , "Edit" if you want your CT to start at boot. Then Click Console and the Start button to start your CT. ![](Pictures/Proxmox8.png)
-11. Login with "root" and the password you set earlier.
-12. Enter the following commands into the console CLI 
+2. Click on your "local (pve)" disk >> Click "CT Templates" >> Click the "Templates" button >> download the Debian 11 template. <br> ![](Pictures/Proxmox1.png)
+4. Add "Hostname" >> Give a Password and confirm password. ![](Pictures/Proxmox2.png)
+5. Select the Debian 11 template. <br> ![](Pictures/Proxmox3.png)
+6. Add your disk size. ![](Pictures/Proxmox4.png)
+7. Add how many CPU cores you want to use. ![](Pictures/Proxmox5.png)
+8. Add how much Memory you want to use. ![](/Pictures/Proxmox6.png)
+9. Give you CT a IP or choose DHCP to let your router choose. ![](Pictures/Proxmox7.png)
+10. Click Next and Confirm/Finish
+11. Click on the "BirdNETPi" CT you created and under "Options" , "Edit" if you want your CT to start at boot. Then Click Console and the Start button to start your CT. ![](Pictures/Proxmox8.png)
+12. Login with "root" and the password you set earlier.
+13. Enter the following commands into the console CLI 
 ```
 apt update
 apt upgrade -y
