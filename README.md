@@ -7,6 +7,9 @@ In a Debian 11 VM with default user "pi" run:
 ```
 curl -s https://raw.githubusercontent.com/MatthewBCooke/BirdNET-Pi/debian/newinstaller.sh | bash
 ```
+<p>
+  <a href="setup/README.md">Detailed instructions to setup a Proxmox container</a>
+</p>
 
 <h1 align="center"><a href="https://github.com/MatthewBCooke/BirdNET-Pi/blob/main/LICENSE">Review the license!!</a></h1>
 <h1 align="center">You may not use BirdNET-Pi to develop a commercial product!!!!</h1>
