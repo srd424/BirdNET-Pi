@@ -42,13 +42,14 @@ if(!isset($_SESSION['behind'])) {
       $sum = $num1 + $num2;
       $_SESSION['behind'] = $sum; 
   }
-  if(isset($_SESSION['behind'])&&intval($_SESSION['behind']) >= 99) {?>
+}
+if(isset($_SESSION['behind'])&&intval($_SESSION['behind']) >= 99) {?>
   <style>
   .updatenumber { 
     width:30px !important;
   }
   </style>
-<?php }}
+<?php }
 
 if (file_exists('./scripts/thisrun.txt')) {
   $config = parse_ini_file('./scripts/thisrun.txt');
@@ -66,12 +67,9 @@ elseif ($config["LONGITUDE"] == "0.000") {
   echo "<center style='color:red'><b>WARNING: Your longitude is not set properly. Please do so now in Tools -> Settings.</center></b>";
 }
 ?>
-<?php if(!isset($_GET['hidehtml'])){?>
 <link rel="stylesheet" href="style.css?v=<?php echo date ('n.d.y', filemtime('style.css')); ?>">
 <style>
-body::-webkit-scrollbar {
-  display:none
-}
+
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="topnav" id="myTopnav">
@@ -139,7 +137,7 @@ function copyOutput(elem) {
   document.execCommand("copy");
 }
 </script>
-<?php } //hidehtml ?>
+
 <div class="views">
 <?php
 if(isset($_GET['view'])){
@@ -452,4 +450,3 @@ window.onbeforeunload = function(event) {
 </script>
 </div>
 </body>
-
