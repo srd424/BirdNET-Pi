@@ -42,7 +42,7 @@ install_birdnet
 
 cd $my_dir/scripts || exit 1
 
-./install_language_label.sh -l $DATABASE_LANG || exit 1
+./install_language_label_nm.sh -l $DATABASE_LANG || exit 1
 
 
 

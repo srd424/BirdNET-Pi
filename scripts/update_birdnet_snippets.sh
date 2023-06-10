@@ -223,13 +223,33 @@ if ! grep LogLevel_SpectrogramViewerService /etc/birdnet/birdnet.conf &>/dev/nul
   sudo -u$USER echo "LogLevel_SpectrogramViewerService=\"error\"" >> /etc/birdnet/birdnet.conf
 fi
 
-if grep -q '^MODEL=BirdNET_GLOBAL_3K_V2.2_Model_FP16$' /etc/birdnet/birdnet.conf;then
+if grep -q '^MODEL=BirdNET_GLOBAL_3K_V2.3_Model_FP16$' /etc/birdnet/birdnet.conf;then
   language=$(grep "^DATABASE_LANG=" /etc/birdnet/birdnet.conf | cut -d= -f2)
-  sed -i 's/BirdNET_GLOBAL_3K_V2.2_Model_FP16/BirdNET_GLOBAL_3K_V2.3_Model_FP16/' /etc/birdnet/birdnet.conf
-  sed -i 's/BirdNET_GLOBAL_3K_V2.2_Model_FP16/BirdNET_GLOBAL_3K_V2.3_Model_FP16/' $HOME/BirdNET-Pi/scripts/thisrun.txt
-  sed -i 's/BirdNET_GLOBAL_3K_V2.2_Model_FP16/BirdNET_GLOBAL_3K_V2.3_Model_FP16/' $HOME/BirdNET-Pi/birdnet.conf
+  sed -i 's/BirdNET_GLOBAL_3K_V2.3_Model_FP16/BirdNET_GLOBAL_6K_V2.4_Model_FP16/' /etc/birdnet/birdnet.conf
+  sed -i 's/BirdNET_GLOBAL_3K_V2.3_Model_FP16/BirdNET_GLOBAL_6K_V2.4_Model_FP16/' $HOME/BirdNET-Pi/scripts/thisrun.txt
+  sed -i 's/BirdNET_GLOBAL_3K_V2.3_Model_FP16/BirdNET_GLOBAL_6K_V2.4_Model_FP16/' $HOME/BirdNET-Pi/birdnet.conf
   cp -f $HOME/BirdNET-Pi/model/labels.txt $HOME/BirdNET-Pi/model/labels.txt.old
   sudo chmod +x $HOME/BirdNET-Pi/scripts/install_language_label_nm.sh && $HOME/BirdNET-Pi/scripts/install_language_label_nm.sh -l "$language"
+fi
+
+# if labels_flickr.txt doesnt exist, create it
+labels_file="$HOME/BirdNET-Pi/model/labels_flickr.txt"
+if [ ! -f "$labels_file" ]; then
+    if [ -f "$HOME/BirdNET-Pi/scripts/thisrun.txt" ]; then
+        config_file="$HOME/BirdNET-Pi/scripts/thisrun.txt"
+    elif [ -f "$HOME/BirdNET-Pi/scripts/thisrun.ini" ]; then
+        config_file="$HOME/BirdNET-Pi/scripts/thisrun.ini"
+    fi
+
+    language=$(grep -oP "^DATABASE_LANG\s*=\s*\K.*" "$config_file")
+    model=$(grep -oP "^MODEL\s*=\s*\K.*" "$config_file")
+
+    if [ "$model" == "BirdNET_GLOBAL_6K_V2.4_Model_FP16" ]; then
+        chmod +x "$HOME/BirdNET-Pi/scripts/install_language_label_nm.sh"
+        "$HOME/BirdNET-Pi/scripts/install_language_label_nm.sh" -l "$language"
+    else
+        "$HOME/BirdNET-Pi/scripts/install_language_label.sh" -l "$language"
+    fi
 fi
 
 
