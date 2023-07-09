@@ -432,6 +432,8 @@ install_services() {
   update_etc_hosts
   set_login
 
+mkdir -p /usr/lib/systemd/system
+
   install_depends
   install_scripts
   install_Caddyfile
