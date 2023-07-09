@@ -249,6 +249,18 @@ CUSTOM_IMAGE_TITLE=""
 LAST_RUN=
 THIS_RUN=
 IDFILE=$HOME/BirdNET-Pi/IdentifiedSoFar.txt
+
+################################################################################
+#------------------------------  Installation ---------------------------------#
+################################################################################
+
+## These are options which define which packages are installed when the system
+## is first set-up. At the moment this is intended to help eliminate packages
+## which pull in a large number of dependencies, and may not be needed when
+## running in e.g. a container, or in some parts of a client/server setup.
+
+## pulseaudio is used for recording from a local sound source
+INSTALL_PULSEAUDIO=true
 EOF
 }
 
