@@ -1,7 +1,7 @@
 pip
 wheel
 setuptools
-tensorflow
+tflite-runtime
 colorama==0.4.4
 librosa
 pytz
