@@ -18,7 +18,7 @@ install_depends() {
   apt-get -qqq update && apt-get -qqy upgrade
   echo "icecast2 icecast2/icecast-setup boolean false" | debconf-set-selections
   apt-get install -qqy caddy ftpd sqlite3 php-sqlite3 alsa-utils \
-    pulseaudio avahi-utils sox libsox-fmt-mp3 php php-fpm php-curl php-xml \
+    avahi-utils sox libsox-fmt-mp3 php php-fpm php-curl php-xml \
     php-zip icecast2 swig ffmpeg wget unzip curl cmake make bc libjpeg-dev \
     zlib1g-dev python3-dev python3-pip python3-venv lsof net-tools
   if $INSTALL_PULSEAUDIO; then
