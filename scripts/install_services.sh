@@ -11,6 +11,28 @@ export HOME=$HOME
 
 export PYTHON_VIRTUAL_ENV="$HOME/BirdNET-Pi/birdnet/bin/python3"
 
+install_static_ffmpeg () {
+  local tarf=$(mktemp)
+  local arch=$(dpkg --print-architecture)
+  local urlvar=FFMPEG_URL_$arch
+  local md5var=FFMPEG_MD5_$arch
+
+  if ! curl -o $tarf ${!urlvar}; then
+    echo "Couldnt download static ffmpeg from ${!urlvar}"
+    exit 1
+  fi
+
+  if [ "$(md5sum $tarf | awk '{print $1}')" != "${!md5var}" ]; then
+    echo "Static ffmpeg tar file md5 did not match"
+    exit 1
+  fi
+
+  sudo mkdir /usr/local/lib/ffmpeg
+  sudo tar -C /usr/local/lib/ffmpeg --strip-components=1 -xJf $tarf
+  rm $tarf
+  sudo ln -s /usr/local/lib/ffmpeg/ffmpeg /usr/local/bin
+}
+
 install_depends() {
   apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -19,10 +41,15 @@ install_depends() {
   echo "icecast2 icecast2/icecast-setup boolean false" | debconf-set-selections
   apt-get install -qqy caddy ftpd sqlite3 php-sqlite3 alsa-utils \
     avahi-utils sox libsox-fmt-mp3 php php-fpm php-curl php-xml \
-    php-zip icecast2 swig ffmpeg wget unzip curl cmake make bc libjpeg-dev \
+    php-zip icecast2 swig wget unzip curl cmake make bc libjpeg-dev \
     zlib1g-dev python3-dev python3-pip python3-venv lsof net-tools
   if $INSTALL_PULSEAUDIO; then
     apt-get install -qqy pulseaudio
+  fi
+  if [ "$INSTALL_FFMPEG" = "native" ]; then
+    apt-get install -qqy ffmpeg
+  else
+    install_static_ffmpeg
   fi
 }
 

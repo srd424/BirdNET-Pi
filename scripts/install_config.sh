@@ -261,6 +261,18 @@ IDFILE=$HOME/BirdNET-Pi/IdentifiedSoFar.txt
 
 ## pulseaudio is used for recording from a local sound source
 INSTALL_PULSEAUDIO=true
+
+## a statically linked ffmpeg build can save us a lot of space by avoiding
+## having to pull-in loads of debian dependencies. Set this to 'native' to use
+## the debian version of ffmpeg, or 'static' to use the static version.
+INSTALL_FFMPEG=native
+
+## details for the static ffmpeg version
+
+FFMPEG_URL_amd64=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+FFMPEG_MD5_amd64=bef7015ca2fd7f19057cad0262d970d2
+FFMPEG_URL_arm64=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz
+FFMPEG_MD5_arm64=67ec92e54b3d0f5dbad4e72404c30af7
 EOF
 }
 
