@@ -57,7 +57,7 @@ def getDbPath():
 def adjustAudioPath(path):
     newpath = path.replace("/BirdSongs/","/BirdSongs/"+curClientSite+"/")
     print("rewriting audio path " + path + " -> " + newpath)
-    return path
+    return newpath
 
 PREDICTED_SPECIES_LIST = []
 
@@ -417,8 +417,8 @@ def handle_client(conn, addr):
                         args.site = inputvars[1]
 
                 global curClientSite
-                if args.site != "":
-                    curClientSite = args.site
+                curClientSite = args.site
+                if curClientSite != "":
                     getDbPath()
                     args.i = adjustAudioPath(args.i)
                     args.o = adjustAudioPath(args.o)
