@@ -11,7 +11,7 @@ _set_modules () {
 
 	local _ALL_MODULES="server main local_recording"
 
-	if [ -z $MODULES_ENABLED -o "$MODULES_ENABLED" = "all" ]; then
+	if [ -z "$MODULES_ENABLED" -o "$MODULES_ENABLED" = "all" ]; then
 		MODULES_ENABLED="${_ALL_MODULES}"
 	fi
 

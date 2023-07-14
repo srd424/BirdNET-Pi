@@ -40,7 +40,7 @@ install_birdnet() {
     local reqf=$reqd/$mod-$debarch.txt
     [ ! -e $reqf ] && reqf=$reqd/$mod.txt
     [ ! -e $reqf ] && continue
-    pip3 install -U -r $reqd
+    pip3 install -U -r $reqf
   done
 }
 
