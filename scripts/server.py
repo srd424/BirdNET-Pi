@@ -37,6 +37,16 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 userDir = os.path.expanduser('~')
 DB_PATH = userDir + '/BirdNET-Pi/scripts/birds.db'
 
+curClientSite = ""
+
+def getDbPath():
+    global curClientSite
+    path = DB_PATH
+    if curClientSite != "":
+        path = "/home/pi/sites/" + curClientSite + "/birds.db"
+    print("returning db path " + path, flush=True)
+    return path
+
 PREDICTED_SPECIES_LIST = []
 
 server = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
@@ -365,6 +375,7 @@ def handle_client(conn, addr):
                 args.min_conf = 0.70
                 args.lat = -1
                 args.lon = -1
+                args.site = ""
 
                 for line in msg.split('||'):
                     inputvars = line.split('=')
@@ -390,6 +401,12 @@ def handle_client(conn, addr):
                         args.lat = float(inputvars[1])
                     elif inputvars[0] == 'lon':
                         args.lon = float(inputvars[1])
+                    elif inputvars[0] == 'sitename':
+                        args.site = inputvars[1]
+
+                global curClientSite
+                curClientSite = args.site
+                getDbPath()
 
                 # Load custom species lists - INCLUDED and EXCLUDED
                 if not args.include_list == 'null':
@@ -502,7 +519,7 @@ def handle_client(conn, addr):
                                 # Connect to SQLite Database
                                 for attempt_number in range(3):
                                     try:
-                                        con = sqlite3.connect(DB_PATH)
+                                        con = sqlite3.connect(getDbPath())
                                         cur = con.cursor()
                                         cur.execute("INSERT INTO detections VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (Date, Time,
                                                     Sci_Name, Com_Name, str(score), Lat, Lon, Cutoff, Week, Sens, Overlap, File_Name))
@@ -530,7 +547,7 @@ def handle_client(conn, addr):
                                                              Sens,
                                                              Overlap,
                                                              settings_dict,
-                                                             DB_PATH)
+                                                             getDbPath())
                                     species_apprised_this_run.append(entry[0])
 
                                 print(str(current_date) +
@@ -623,8 +640,9 @@ def start():
     # print(f"[LISTENING] Server is listening on {SERVER}")
     while True:
         conn, addr = server.accept()
-        thread = threading.Thread(target=handle_client, args=(conn, addr))
-        thread.start()
+#        thread = threading.Thread(target=handle_client, args=(conn, addr))
+#        thread.start()
+        handle_client(conn, addr)
         # print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
 
