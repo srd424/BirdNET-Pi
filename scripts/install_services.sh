@@ -31,6 +31,10 @@ PKGS_main="${PKGS_common} \
 
 PKGS_local_recording="pulseaudio"
 
+SVCS_server="birdnet_server"
+SVCS_main="birdnet_analysis birdnet_server extraction birdnet_recording \
+    caddy avahi-alias@$(hostname).local birdnet_stats spectrogram_viewer \
+  chart_viewer birdnet_log web_terminal icecast2 livestream"
 
 filter_pkg () {
   local var="$1"
@@ -92,6 +96,12 @@ install_depends() {
   done
 }
 
+enable_services () {
+  for mod in $MODULES_ENABLED; do
+    local svcvar="SVCS_${mod}"
+    systemctl enable ${!svcvar}
+  done
+}
 
 set_hostname() {
   if [ "$(hostname)" == "raspberrypi" ];then
@@ -126,7 +136,6 @@ ExecStart=/usr/local/bin/birdnet_analysis.sh
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/birdnet_analysis.service /usr/lib/systemd/system
-  systemctl enable birdnet_analysis.service
 }
 
 install_birdnet_server() {
@@ -144,7 +153,6 @@ ExecStart=$PYTHON_VIRTUAL_ENV /usr/local/bin/server.py
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/birdnet_server.service /usr/lib/systemd/system
-  systemctl enable birdnet_server.service
 }
 
 install_extraction_service() {
@@ -161,7 +169,6 @@ ExecStart=/usr/bin/env bash -c 'while true;do extract_new_birdsounds.sh;sleep 3;
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/extraction.service /usr/lib/systemd/system
-  systemctl enable extraction.service
 }
 
 create_necessary_dirs() {
@@ -231,7 +238,6 @@ ExecStart=/usr/local/bin/birdnet_recording.sh
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/birdnet_recording.service /usr/lib/systemd/system
-  systemctl enable birdnet_recording.service
 }
 
 install_custom_recording_service() {
@@ -314,7 +320,6 @@ http:// ${BIRDNETPI_URL} {
 EOF
   fi
 
-  systemctl enable caddy
   usermod -aG $USER caddy
   usermod -aG video caddy
 }
@@ -334,7 +339,6 @@ ExecStart=/bin/bash -c "/usr/bin/avahi-publish -a -R %I $(hostname -I |cut -d' '
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/avahi-alias@.service /usr/lib/systemd/system
-  systemctl enable avahi-alias@"$(hostname)".local.service
 }
 
 install_birdnet_stats_service() {
@@ -352,7 +356,6 @@ ExecStart=$HOME/BirdNET-Pi/birdnet/bin/streamlit run $HOME/BirdNET-Pi/scripts/pl
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/birdnet_stats.service /usr/lib/systemd/system
-  systemctl enable birdnet_stats.service
 }
 
 install_spectrogram_service() {
@@ -369,7 +372,6 @@ ExecStart=/usr/local/bin/spectrogram.sh
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/spectrogram_viewer.service /usr/lib/systemd/system
-  systemctl enable spectrogram_viewer.service
 }
 
 install_chart_viewer_service() {
@@ -387,7 +389,6 @@ ExecStart=$PYTHON_VIRTUAL_ENV /usr/local/bin/daily_plot.py
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/chart_viewer.service /usr/lib/systemd/system
-  systemctl enable chart_viewer.service
 }
 
 install_gotty_logs() {
@@ -409,7 +410,6 @@ ExecStart=/usr/local/bin/gotty --address localhost -p 8080 --path log --title-fo
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/birdnet_log.service /usr/lib/systemd/system
-  systemctl enable birdnet_log.service
   cat << EOF > $HOME/BirdNET-Pi/templates/web_terminal.service
 [Unit]
 Description=BirdNET-Pi Web Terminal
@@ -423,7 +423,6 @@ ExecStart=/usr/local/bin/gotty --address localhost -w -p 8888 --path terminal --
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/web_terminal.service /usr/lib/systemd/system
-  systemctl enable web_terminal.service
 }
 
 configure_caddy_php() {
@@ -453,7 +452,6 @@ config_icecast() {
   done
   sed -i 's|<!-- <bind-address>.*|<bind-address>127.0.0.1</bind-address>|;s|<!-- <shoutcast-mount>.*|<shoutcast-mount>/stream</shoutcast-mount>|'
 
-  systemctl enable icecast2.service
 }
 
 install_livestream_service() {
@@ -473,7 +471,6 @@ ExecStart=/usr/local/bin/livestream.sh
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/livestream.service /usr/lib/systemd/system
-  systemctl enable livestream.service
 }
 
 install_cleanup_cron() {
@@ -528,6 +525,8 @@ install_services() {
   configure_caddy_php
   config_icecast
   USER=$USER HOME=$HOME ${my_dir}/scripts/createdb.sh
+
+  enable_services
 }
 
 install_services
