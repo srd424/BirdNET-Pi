@@ -1,0 +1,7 @@
+pip
+wheel
+setuptools
+pytz
+tzlocal
+pytest==7.1.2
+pytest-mock==3.7.0

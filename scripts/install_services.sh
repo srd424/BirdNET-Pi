@@ -11,16 +11,37 @@ export HOME=$HOME
 
 export PYTHON_VIRTUAL_ENV="$HOME/BirdNET-Pi/birdnet/bin/python3"
 
+source $my_dir/set_modules.sh
+
+PKGS_common="sqlite3 sox libsox-fmt-mp3 \
+    swig ffmpeg wget unzip curl cmake make bc libjpeg-dev \
+    zlib1g-dev python3-dev python3-pip python3-venv lsof net-tools"
+
+PKGS_server="${PKGS_common}"
+
+PKGS_main="${PKGS_common} \
+    ftpd php-sqlite3 alsa-utils avahi-utils php php-fpm php-curl php-xml \
+    php-zip icecast2"
+
+PKGS_local_recording="pulseaudio"
+
+NEED_CADDY=false
+[ $MOD_main ] && NEED_CADDY=true
+
 install_depends() {
-  apt install -y debian-keyring debian-archive-keyring apt-transport-https
-  curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-  curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+  if $NEED_CADDY; then
+    apt install -y debian-keyring debian-archive-keyring apt-transport-https
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+  fi
   apt -qqq update && apt -qqy upgrade
+  $NEED_CADDY && apt install -qqy caddy
   echo "icecast2 icecast2/icecast-setup boolean false" | debconf-set-selections
-  apt install -qqy caddy ftpd sqlite3 php-sqlite3 alsa-utils \
-    pulseaudio avahi-utils sox libsox-fmt-mp3 php php-fpm php-curl php-xml \
-    php-zip icecast2 swig ffmpeg wget unzip curl cmake make bc libjpeg-dev \
-    zlib1g-dev python3-dev python3-pip python3-venv lsof net-tools
+  local mod
+  for mod in $MODULES_ENABLED; do
+    local pkgvar="PKGS_${mod}"
+    apt install -qqy ${!pkgvar}
+  done
 }
 
 

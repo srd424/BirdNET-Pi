@@ -24,16 +24,24 @@ fi
 sudo -E HOME=$HOME USER=$USER ./install_services.sh || exit 1
 source /etc/birdnet/birdnet.conf
 
+source $my_dir/set_modules.sh
+
 install_birdnet() {
   cd ~/BirdNET-Pi || exit 1
   echo "Establishing a python virtual environment"
   python3 -m venv birdnet
   source ./birdnet/bin/activate
-  if [ $arch == "aarch64" ]; then
-    pip3 install -U -r $HOME/BirdNET-Pi/requirements.txt
-  elif [ $arch == "x86_64" ]; then
-    pip3 install -U -r $HOME/BirdNET-Pi/requirements-x86.txt
-  fi
+  
+  local debarch="$(dpkg --print-architecture)"
+
+  local mod
+  local reqd=$HOME/BirdNET-Pi/reqs
+  for mod in common $MODULES_ENABLED; do
+    local reqf=$reqd/$mod-$debarch.txt
+    [ ! -e $reqf ] && reqf=$reqd/$mod.txt
+    [ ! -e $reqf ] && continue
+    pip3 install -U -r $reqd
+  done
 }
 
 [ -d ${RECS_DIR} ] || mkdir -p ${RECS_DIR} &> /dev/null
