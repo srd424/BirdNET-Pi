@@ -110,12 +110,6 @@ run_analysis() {
       sleep 2
     done
 
-    if ! grep 5050 <(netstat -tulpn 2>&1) &> /dev/null 2>&1;then
-      echo "Waiting for socket"
-      until grep 5050 <(netstat -tulpn 2>&1) &> /dev/null 2>&1;do
-        sleep 1
-      done
-    fi
     # prepare optional parameters for analyze.py
     if [ -f ${INCLUDE_LIST} ]; then
       INCLUDEPARAM="--include_list ${INCLUDE_LIST}"
@@ -134,6 +128,10 @@ run_analysis() {
       BIRDWEATHER_ID_PARAM=""
       BIRDWEATHER_ID_LOG=""
     fi
+    SERVER_PARAM=""
+    if [ -n "$ANALYSIS_SERVER" ]; then
+      SERVER_PARAM="--server $ANALYSIS_SERVER --sitename $SITE_NAME"
+    fi
     echo $PYTHON_VIRTUAL_ENV "$DIR/analyze.py" \
 --i "${1}/${i}" \
 --o "${1}/${i}.csv" \
@@ -145,6 +143,7 @@ run_analysis() {
 --min_conf "${CONFIDENCE}" \
 ${INCLUDEPARAM} \
 ${EXCLUDEPARAM} \
+${SERVER_PARAM} \
 ${BIRDWEATHER_ID_LOG}
     $PYTHON_VIRTUAL_ENV $DIR/analyze.py \
       --i "${1}/${i}" \
@@ -157,6 +156,7 @@ ${BIRDWEATHER_ID_LOG}
       --min_conf "${CONFIDENCE}" \
       ${INCLUDEPARAM} \
       ${EXCLUDEPARAM} \
+      ${SERVER_PARAM} \
       ${BIRDWEATHER_ID_PARAM}
     if [ ! -z $HEARTBEAT_URL ]; then
       echo "Performing Heartbeat"
@@ -174,10 +174,6 @@ run_birdnet() {
   move_analyzed "${1}"
   run_analysis "${1}"
 }
-
-until grep 5050 <(netstat -tulpn 2>&1) &> /dev/null 2>&1;do
-  sleep 1
-done
 
 if [ $(find ${RECS_DIR}/StreamData -maxdepth 1 -name '*wav' 2>/dev/null| wc -l) -gt 0 ];then
   find $RECS_DIR -maxdepth 1 -name '*wav' -type f -size 0 -delete

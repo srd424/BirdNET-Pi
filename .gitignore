@@ -35,6 +35,7 @@ IdentifiedSoFar.txt.bak
 Birders_Guide_Installer_Configuration.txt
 birdnet/
 templates/*.service
+!templates/birdnet_start_server.service
 scripts/*.txt
 scripts/birds.db
 analyzing_now.txt

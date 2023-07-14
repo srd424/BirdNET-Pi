@@ -74,7 +74,8 @@ ExecStart=$PYTHON_VIRTUAL_ENV /usr/local/bin/server.py
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/birdnet_server.service /usr/lib/systemd/system
-  systemctl enable birdnet_server.service
+  ln -sf $HOME/BirdNET-Pi/templates/birdnet_start_server.service /usr/lib/systemd/system
+  systemctl enable birdnet_start_server.service
 }
 
 install_extraction_service() {
