@@ -40,6 +40,7 @@ filter_pkg () {
   local var="$1"
   local pkg="$2"
 
+  eval "NEED_$var=false"
   for mod in $MODULES_ENABLED; do
     local pkgvar="PKGS_${mod}"
     if echo "${!pkgvar}" | grep -E "(^| )$pkg(\$ | )"; then
