@@ -39,12 +39,24 @@ DB_PATH = userDir + '/BirdNET-Pi/scripts/birds.db'
 
 curClientSite = ""
 
+def getTxtDbPath():
+    path = userDir + '/BirdNET-Pi/BirdDB.txt'
+    if curClientSite != "":
+        path = "/home/pi/sites/" + curClientSite + "/BirdDB.txt"
+    print("returning txtdb path " + path, flush=True)
+    return path
+
 def getDbPath():
     global curClientSite
     path = DB_PATH
     if curClientSite != "":
         path = "/home/pi/sites/" + curClientSite + "/birds.db"
     print("returning db path " + path, flush=True)
+    return path
+
+def adjustAudioPath(path):
+    newpath = path.replace("/BirdSongs/","/BirdSongs/"+curClientSite+"/")
+    print("rewriting audio path " + path + " -> " + newpath)
     return path
 
 PREDICTED_SPECIES_LIST = []
@@ -405,8 +417,11 @@ def handle_client(conn, addr):
                         args.site = inputvars[1]
 
                 global curClientSite
-                curClientSite = args.site
-                getDbPath()
+                if args.site != "":
+                    curClientSite = args.site
+                    getDbPath()
+                    args.i = adjustAudioPath(args.i)
+                    args.o = adjustAudioPath(args.o)
 
                 # Load custom species lists - INCLUDED and EXCLUDED
                 if not args.include_list == 'null':
@@ -487,7 +502,8 @@ def handle_client(conn, addr):
                 for i in detections:
                     myReturn += str(i) + '-' + str(detections[i][0]) + '\n'
 
-                with open(userDir + '/BirdNET-Pi/BirdDB.txt', 'a') as rfile:
+#                with open(userDir + '/BirdNET-Pi/BirdDB.txt', 'a') as rfile:
+                with open(getTxtDbPath(), 'a') as rfile:
                     for d in detections:
                         species_apprised_this_run = []
                         for entry in detections[d]:
