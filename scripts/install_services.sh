@@ -34,7 +34,7 @@ filter_pkg () {
 
   for mod in $MODULES_ENABLED; do
     local pkgvar="PKGS_${mod}"
-    if echo "${!pkgvar}" | grep -E '(^| )$pkg($ | )'; then
+    if echo "${!pkgvar}" | grep -E "(^| )$pkg(\$ | )"; then
 	eval "NEED_$var=true"
 	eval PKGS_${mod}=\""$(echo "${!pkgvar}" | sed -re "s/(^| )$pkg(\$ | )/ /g")"\"
     fi
