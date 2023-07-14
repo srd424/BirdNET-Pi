@@ -24,7 +24,7 @@ fi
 sudo -E HOME=$HOME USER=$USER ./install_services.sh || exit 1
 source /etc/birdnet/birdnet.conf
 
-source $my_dir/set_modules.sh
+source $my_dir/scripts/set_modules.sh
 
 install_birdnet() {
   cd ~/BirdNET-Pi || exit 1

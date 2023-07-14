@@ -11,7 +11,7 @@ export HOME=$HOME
 
 export PYTHON_VIRTUAL_ENV="$HOME/BirdNET-Pi/birdnet/bin/python3"
 
-source $my_dir/set_modules.sh
+source $my_dir/scripts/set_modules.sh
 
 PKGS_common="sqlite3 sox libsox-fmt-mp3 \
     swig ffmpeg wget unzip curl cmake make bc libjpeg-dev \
