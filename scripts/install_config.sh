@@ -240,6 +240,9 @@ LAST_RUN=
 THIS_RUN=
 IDFILE=$HOME/BirdNET-Pi/IdentifiedSoFar.txt
 EOF
+
+local overf=$my_dir/birdnet.conf.override
+[ -e $overf ] && cat $overf >>$birdnet_conf
 }
 
 # Checks for a birdnet.conf file
