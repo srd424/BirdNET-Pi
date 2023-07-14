@@ -27,12 +27,10 @@ PKGS_server="${PKGS_common}"
 
 PKGS_main="${PKGS_common} \
     ftpd php-sqlite3 alsa-utils avahi-utils php php-fpm php-curl php-xml \
-    php-zip icecast2"
+    php-zip icecast2 caddy"
 
 PKGS_local_recording="pulseaudio"
 
-NEED_CADDY=false
-$MOD_main && NEED_CADDY=true
 
 filter_pkg () {
   local var="$1"
