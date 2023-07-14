@@ -11,6 +11,12 @@ export HOME=$HOME
 
 export PYTHON_VIRTUAL_ENV="$HOME/BirdNET-Pi/birdnet/bin/python3"
 
+if [ \! -f ${config_file} ];then
+  echo "Unable to find a configuration file. Please make sure that $config_file exists."
+  exit 1
+fi
+source ${config_file}
+
 source $my_dir/scripts/set_modules.sh
 
 PKGS_common="sqlite3 sox libsox-fmt-mp3 \
@@ -523,10 +529,5 @@ install_services() {
   USER=$USER HOME=$HOME ${my_dir}/scripts/createdb.sh
 }
 
-if [ -f ${config_file} ];then
-  source ${config_file}
-  install_services
-  chown_things
-else
-  echo "Unable to find a configuration file. Please make sure that $config_file exists."
-fi
+install_services
+chown_things
