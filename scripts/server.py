@@ -29,7 +29,7 @@ except BaseException:
 
 HEADER = 64
 PORT = 5050
-SERVER = "localhost"
+SERVER = ""
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -39,7 +39,7 @@ DB_PATH = userDir + '/BirdNET-Pi/scripts/birds.db'
 
 PREDICTED_SPECIES_LIST = []
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 try:
