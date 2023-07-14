@@ -32,7 +32,7 @@ PKGS_main="${PKGS_common} \
 PKGS_local_recording="pulseaudio"
 
 NEED_CADDY=false
-[ $MOD_main ] && NEED_CADDY=true
+$MOD_main && NEED_CADDY=true
 
 filter_pkg () {
   local var="$1"
