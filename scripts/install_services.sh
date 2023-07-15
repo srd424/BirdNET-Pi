@@ -32,7 +32,7 @@ PKGS_main="${PKGS_common} \
 PKGS_local_recording="pulseaudio"
 
 SVCS_server="birdnet_server"
-SVCS_main="birdnet_analysis birdnet_server extraction birdnet_recording \
+SVCS_main="birdnet_analysis birdnet_start_server extraction birdnet_recording \
     caddy avahi-alias@$(hostname).local birdnet_stats spectrogram_viewer \
   chart_viewer birdnet_log web_terminal icecast2 livestream"
 
@@ -154,6 +154,7 @@ ExecStart=$PYTHON_VIRTUAL_ENV /usr/local/bin/server.py
 WantedBy=multi-user.target
 EOF
   ln -sf $HOME/BirdNET-Pi/templates/birdnet_server.service /usr/lib/systemd/system
+  ln -sf $HOME/BirdNET-Pi/templates/birdnet_start_server.service /usr/lib/systemd/system
 }
 
 install_extraction_service() {
