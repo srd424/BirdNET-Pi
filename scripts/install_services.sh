@@ -148,7 +148,7 @@ Restart=always
 Type=simple
 RestartSec=10
 User=${USER}
-ExecStartPre=/bin/bash -c "f=$HOME/BirdNET-Pi/scripts/thisrun.txt; [ -e \$f ] || cat /etc/birdnet/birdnet.conf >\$f"
+ExecStartPre=:/bin/bash -c "f=$HOME/BirdNET-Pi/scripts/thisrun.txt; [ -e \$f ] || cat /etc/birdnet/birdnet.conf >\$f"
 ExecStart=$PYTHON_VIRTUAL_ENV /usr/local/bin/server.py
 [Install]
 WantedBy=multi-user.target
