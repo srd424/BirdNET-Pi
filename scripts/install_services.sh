@@ -20,14 +20,14 @@ source ${config_file}
 source $my_dir/scripts/set_modules.sh
 
 PKGS_common="sqlite3 sox libsox-fmt-mp3 \
-    swig ffmpeg wget unzip curl cmake make bc libjpeg-dev \
+    swig wget unzip curl cmake make bc libjpeg-dev \
     zlib1g-dev python3-dev python3-pip python3-venv lsof net-tools"
 
 PKGS_server="${PKGS_common}"
 
 PKGS_main="${PKGS_common} \
     ftpd php-sqlite3 alsa-utils avahi-utils php php-fpm php-curl php-xml \
-    php-zip icecast2 caddy"
+    php-zip icecast2 caddy ffmpeg"
 
 PKGS_local_recording="pulseaudio"
 
