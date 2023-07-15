@@ -19,9 +19,9 @@ source ${config_file}
 
 source $my_dir/scripts/set_modules.sh
 
-PKGS_common="sqlite3 sox libsox-fmt-mp3 \
-    swig wget unzip curl cmake make bc libjpeg-dev \
-    zlib1g-dev python3-dev python3-pip python3-venv lsof net-tools"
+PKGS_build="swig cmake make libjpeg-dev zlib1g-dev python3-dev python3-pip python3-venv"
+
+PKGS_common="sqlite3 sox libsox-fmt-mp3 wget unzip curl bc lsof net-tools"
 
 PKGS_server="${PKGS_common}"
 
@@ -35,6 +35,8 @@ SVCS_server="birdnet_server"
 SVCS_main="birdnet_analysis birdnet_start_server extraction birdnet_recording \
     caddy avahi-alias@$(hostname).local birdnet_stats spectrogram_viewer \
   chart_viewer birdnet_log web_terminal icecast2 livestream"
+
+[ -n "$MODULES_SKIP_BUILD" ] || MODULES_ENABLED="${MODULES_ENABLED} build"
 
 filter_pkg () {
   local var="$1"
