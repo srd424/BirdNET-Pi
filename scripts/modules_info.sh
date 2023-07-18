@@ -15,3 +15,17 @@ SVCS_server="birdnet_server"
 SVCS_main="birdnet_analysis birdnet_start_server extraction birdnet_recording \
     caddy avahi-alias@$(hostname).local birdnet_stats spectrogram_viewer \
   chart_viewer birdnet_log web_terminal icecast2 livestream"
+
+filter_pkg () {
+  local var="$1"
+  local pkg="$2"
+
+  eval "NEED_$var=false"
+  for mod in $MODULES_ENABLED; do
+    local pkgvar="PKGS_${mod}"
+    if echo "${!pkgvar}" | grep -E "(^| )$pkg(\$| )"; then
+	eval "NEED_$var=true"
+	eval PKGS_${mod}=\""$(echo "${!pkgvar}" | sed -re "s/(^| )$pkg(\$| )/ /g")"\"
+    fi
+  done
+}

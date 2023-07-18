@@ -22,21 +22,6 @@ source ${config_file}
 source $my_dir/scripts/set_modules.sh
 source $my_dir/scripts/modules_info.sh
 
-
-filter_pkg () {
-  local var="$1"
-  local pkg="$2"
-
-  eval "NEED_$var=false"
-  for mod in $MODULES_ENABLED; do
-    local pkgvar="PKGS_${mod}"
-    if echo "${!pkgvar}" | grep -E "(^| )$pkg(\$| )"; then
-	eval "NEED_$var=true"
-	eval PKGS_${mod}=\""$(echo "${!pkgvar}" | sed -re "s/(^| )$pkg(\$| )/ /g")"\"
-    fi
-  done
-}
-
 source $my_dir/scripts/install_ffmpeg.sh
 source $my_dir/scripts/install_caddy.sh
 
