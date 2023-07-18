@@ -17,10 +17,11 @@ if [ \! -f ${config_file} ];then
 fi
 source ${config_file}
 
+[ -n "$MODULES_SKIP_BUILD" ] || MODULES_ENABLED="${MODULES_ENABLED} build"
+
 source $my_dir/scripts/set_modules.sh
 source $my_dir/scripts/modules_info.sh
 
-[ -n "$MODULES_SKIP_BUILD" ] || MODULES_ENABLED="${MODULES_ENABLED} build"
 
 filter_pkg () {
   local var="$1"
@@ -36,45 +37,23 @@ filter_pkg () {
   done
 }
 
-FFMPEG_URL_amd64=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
-FFMPEG_MD5_amd64=bef7015ca2fd7f19057cad0262d970d2
-FFMPEG_URL_arm64=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz
-FFMPEG_MD5_arm64=67ec92e54b3d0f5dbad4e72404c30af7
-
-install_ffmpeg () {
-  local tarf=$(mktemp)
-  local arch=$(dpkg --print-architecture)
-  local urlvar=FFMPEG_URL_$arch
-  local md5var=FFMPEG_MD5_$arch
-
-  if ! curl -o $tarf ${!urlvar}; then
-    echo "Couldnt download static ffmpeg from ${!urlvar}"
-    exit 1
-  fi
-
-  if [ "$(md5sum $tarf | awk '{print $1}')" != "${!md5var}" ]; then
-    echo "Static ffmpeg tar file md5 did not match"
-    exit 1
-  fi
-
-  sudo mkdir /usr/local/lib/ffmpeg
-  sudo tar -C /usr/local/lib/ffmpeg --strip-components=1 -xJf $tarf
-  rm $tarf
-  sudo ln -s /usr/local/lib/ffmpeg/ffmpeg /usr/local/bin
-}
-
+source $my_dir/scripts/install_ffmpeg.sh
+source $my_dir/scripts/install_caddy.sh
 
 install_depends() {
   filter_pkg CADDY caddy
   filter_pkg FFMPEG ffmpeg
-  if $NEED_CADDY; then
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-  fi
+
+  $NEED_CADDY && $MOD_build && install_caddy_build_pre
+
   apt -qqq update && apt -qqy upgrade
-  $NEED_CADDY && apt install -qqy caddy
+
+  $NEED_CADDY && $MOD_build && install_caddy_build
+  $NEED_CADDY && install_caddy_final
   $NEED_FFMPEG && install_ffmpeg
+
   echo "icecast2 icecast2/icecast-setup boolean false" | debconf-set-selections
+
   local mod
   for mod in $MODULES_ENABLED; do
     local pkgvar="PKGS_${mod}"
@@ -518,3 +497,5 @@ install_services() {
 
 install_services
 chown_things
+
+# vim: set ts=2 et sw=2: 
