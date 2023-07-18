@@ -19,6 +19,7 @@ _set_modules () {
 	for mod in $_ALL_MODULES; do
 		_set_modvar $mod false
 	done
+	_set_modvar "build" false
 
 	for mod in $MODULES_ENABLED; do
 		_set_modvar $mod true
