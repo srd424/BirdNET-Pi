@@ -19,8 +19,8 @@ source ${config_file}
 
 source $my_dir/scripts/set_modules.sh
 
-PKGS_build="swig cmake make libjpeg-dev zlib1g-dev python3-dev python3-pip python3-venv \
-	debian-keyring debian-archive-keyring apt-transport-https gnupg"
+# PKGS_build in particular can't be split across multiple lines - horrid!
+PKGS_build="swig cmake make libjpeg-dev zlib1g-dev python3-dev python3-pip python3-venv debian-keyring debian-archive-keyring apt-transport-https gnupg"
 
 PKGS_common="sqlite3 sox libsox-fmt-mp3 wget unzip curl bc lsof net-tools"
 
