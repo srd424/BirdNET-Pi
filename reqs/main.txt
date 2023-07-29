@@ -6,3 +6,4 @@ streamlit
 plotly
 paho-mqtt
 pandas
+suntime
