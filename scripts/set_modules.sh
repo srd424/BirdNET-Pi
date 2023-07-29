@@ -9,7 +9,7 @@ _set_modvar () {
 
 _set_modules () {
 
-	local _ALL_MODULES="server main local_recording"
+	local _ALL_MODULES="server main local_recording streamlit"
 
 	if [ -z "$MODULES_ENABLED" -o "$MODULES_ENABLED" = "all" ]; then
 		MODULES_ENABLED="${_ALL_MODULES}"

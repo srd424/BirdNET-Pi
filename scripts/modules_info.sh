@@ -9,12 +9,16 @@ PKGS_main="${PKGS_common} \
     ftpd php-sqlite3 alsa-utils avahi-utils php php-fpm php-curl php-xml \
     php-zip icecast2 caddy ffmpeg"
 
+PKGS_streamlit="${PKGS_common}"
+
 PKGS_local_recording="pulseaudio"
 
 SVCS_server="birdnet_server"
 SVCS_main="birdnet_analysis birdnet_start_server extraction birdnet_recording \
-    caddy avahi-alias@$(hostname).local birdnet_stats spectrogram_viewer \
+    caddy avahi-alias@$(hostname).local spectrogram_viewer \
   chart_viewer birdnet_log web_terminal icecast2 livestream"
+
+SVCS_streamlit="birdnet_stats"
 
 filter_pkg () {
   local var="$1"
