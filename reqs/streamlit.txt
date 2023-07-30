@@ -6,3 +6,4 @@ plotly
 paho-mqtt
 pandas
 suntime
+scikit-learn
