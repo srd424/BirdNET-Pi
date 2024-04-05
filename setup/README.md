@@ -18,8 +18,9 @@
 apt update
 apt upgrade -y
 apt install curl sudo -y
-add user pi
+useradd -m pi
 usermod -aG sudo pi
+sudo passwd pi
 su pi
 curl -s https://raw.githubusercontent.com/MatthewBCooke/BirdNET-Pi/debian/newinstaller.sh | bash
 ```
