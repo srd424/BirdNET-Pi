@@ -1,6 +1,6 @@
-FFMPEG_URL_amd64=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+FFMPEG_URL_amd64=https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-6.0-amd64-static.tar.xz
 FFMPEG_MD5_amd64=bef7015ca2fd7f19057cad0262d970d2
-FFMPEG_URL_arm64=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz
+FFMPEG_URL_arm64=https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-6.0-arm64-static.tar.xz
 FFMPEG_MD5_arm64=67ec92e54b3d0f5dbad4e72404c30af7
 
 install_ffmpeg () {
